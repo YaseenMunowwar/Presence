@@ -33,11 +33,10 @@ Employee: Marks their time-in and time-out by scanning their face, and can view 
 The documentation folder contains detailed information about the project, including UML diagrams and other relevant documents.
 
 # How to Run
-Clone the repository to your local machine.
-Set up a separate Python virtual environment or use the default one.
-Download the necessary files and place them in the designated directory.
-Install the required dependencies by running pip install -r requirements.txt.
-Run python manage.py runserver to start the project.
-Access the web application through the provided URL.
-Enjoy seamless attendance management using facial recognition technology!
-Feel free to make any necessary changes or additions to the README file on GitHub to align it with your project's structure and repository.
+#### Clone the repository to your local machine.
+#### Set up a Python virtual environment: python -m venv env
+#### Activate the virtual environment:
+ ##### Windows: env\Scripts\activate
+ ##### macOS/Linux: source env/bin/activate
+#### Install dependencies: pip install -r requirements.txt
+#### Run the application: python manage.py runserver
