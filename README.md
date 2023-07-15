@@ -21,12 +21,13 @@ The system caters to two types of users:
 
 Admin: Performs administrative tasks such as login, employee registration, photo addition, model training, and viewing attendance reports.
 Employee: Marks their time-in and time-out by scanning their face, and can view their attendance report.
-Technology Stack
-Language: Python
-Framework: Django
-Front-end: HTML, CSS, JavaScript
-Libraries: Dlib (HOG facial detector and 68 point shape predictor), face_recognition, scikit-learn
-Database: SQLite
+
+# Technology Stack
+### Language: Python
+### Framework: Django
+### Front-end: HTML, CSS, JavaScript
+### Libraries: Dlib (HOG facial detector and 68 point shape predictor), face_recognition, scikit-learn
+### Database: SQLite
 
 # Documentation 📰
 The documentation folder contains detailed information about the project, including UML diagrams and other relevant documents.
