@@ -33,10 +33,10 @@ Employee: Marks their time-in and time-out by scanning their face, and can view 
 The documentation folder contains detailed information about the project, including UML diagrams and other relevant documents.
 
 # How to Run
-#### Clone the repository to your local machine.
-#### Set up a Python virtual environment: python -m venv env
-#### Activate the virtual environment:
- ##### Windows: env\Scripts\activate
- ##### macOS/Linux: source env/bin/activate
-#### Install dependencies: pip install -r requirements.txt
-#### Run the application: python manage.py runserver
+#### 1. Clone the repository to your local machine.
+#### 2. Set up a Python virtual environment: python -m venv env
+#### 3. Activate the virtual environment:
+ ##### 3.1 Windows: env\Scripts\activate
+ ##### 3.1 macOS/Linux: source env/bin/activate
+#### 4. Install dependencies: pip install -r requirements.txt
+#### 5. Run the application: python manage.py runserver
