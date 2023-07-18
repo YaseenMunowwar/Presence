@@ -1,0 +1,93 @@
+{% load static %}
+{% load crispy_forms_tags %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'recognition/css/bootstrap.min.css' %}">
+    
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+            background: url('{% static "/img/bg.jpg" %}') no-repeat center center fixed;
+            background-size: cover;
+            
+        }
+
+        .content-wrapper {
+            flex: 1;
+        }
+
+        .footer {
+            background-color: #0a3257;
+            padding-top: 30px;
+            padding-bottom: 20px;
+            text-align: center;
+            color: #fff;
+
+        }
+    </style>
+</head>
+<body>
+    <div class="content-wrapper">
+        <!-- Navbar -->
+      <nav class="main-header navbar bg-secondary navbar-white py-4">
+
+        <a href="{% url 'home' %}" class="navbar-brand">
+          <img
+            src="{% static 'recognition/img/logo3.png' %}"
+            alt="AdminLTE Logo"
+            class="img-circle"
+            style="width: 400px; height:150px; margin-left: 50px;"
+          />
+        </a>
+        <h1 class="text-white text-center display-3 text-uppercase"></h1>
+<!--           Right navbar links-->
+        <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
+          <li class="nav-item dropdown">
+            <a class="button btn btn-primary" href='{%url "login" %}' style="margin-right: 80px;">Login</a>
+          </li>
+        </ul>
+
+      </div>
+
+    </nav>
+    
+        <div class="container">
+            <div class="row">
+              <div class="col-lg-5 mx-auto " style="background: #0a3257; padding: 2em; color: #fff; border-radius: 25px; box-shadow: 2px 2px 15px 0px rgba(0, 3, 0, 0.7); margin-top: 120px; margin-bottom: 100px; ">
+                      <form method="POST">
+                        {% csrf_token %}
+                        <fieldset class="form-group">
+                            <legend class="border-bottom " style="margin-bottom: 50px;" >Log In</legend>
+                            {{ form|crispy }}
+                        </fieldset>
+                        <div class="form-group text-center">
+                            <button class="btn btn-primary" type="submit" style="margin-bottom: 30px; margin-top: 20px;">Login</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2023 <a href="#" class="text-dark">YASEEN</a> All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <!-- Optional JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
