@@ -570,6 +570,37 @@ def mark_your_attendance(request):
                     print(pred, present[pred], count[pred])
                 cv2.putText(frame, str(person_name) + str(prob), (x + 6, y + h - 6), cv2.FONT_HERSHEY_SIMPLEX, 0.5,
                             (0, 255, 0), 1)
+                
+                # Display the detected face with the name for 10 seconds
+                cv2.imshow("Detected Face - " + person_name, cv2.resize(face_aligned, (300, 300)))  # Resize the window to 300x300
+                cv2.waitKey(5000)
+                cv2.destroyWindow("Detected Face - " + person_name)
+
+                # Create a black background image with larger dimensions
+                background_color = (0, 0, 0)
+                background_image = np.full((150, 700, 3), background_color, dtype=np.uint8)
+
+                # Add text to the image
+                font = cv2.FONT_HERSHEY_SIMPLEX
+                text = person_name.title() + " Your Attendance-In is marked"  # Modify this text as needed
+                text_color = (255, 255, 255)  # White color for the text
+                text_size = cv2.getTextSize(text, font, 1, 2)[0]
+                text_x = (background_image.shape[1] - text_size[0]) // 2
+                text_y = (background_image.shape[0] + text_size[1]) // 3
+                cv2.putText(background_image, text, (text_x, text_y), font, 1, text_color, 2, cv2.LINE_AA)
+
+                # Display the image in a window for 10 seconds
+                cv2.imshow("Face Detected", background_image)
+                update_attendance_in_db_in(present)
+                cv2.waitKey(5000)
+                cv2.destroyWindow("Face Detected")
+
+                vs.stop()  # Stop the video stream
+                cv2.destroyAllWindows()  # Close all windows
+                return redirect('home')  # Redirect to the desired page after detecting a face
+
+                
+                #break  # Exit the for loop after detecting a face
 
             else:
                 person_name = "unknown"
@@ -582,7 +613,7 @@ def mark_your_attendance(request):
 
         # Showing the image in another window
         # Creates a window with window name "Face" and with the image img
-        cv2.imshow("Mark Attendance - In - Press q to exit", frame)
+        cv2.imshow("Mark Attendance - In - Press m to exit", frame)
         # Before closing it we need to give a wait command, otherwise the open cv wont work
         # @params with the millisecond of delay 1
         # cv2.waitKey(1)
@@ -599,12 +630,9 @@ def mark_your_attendance(request):
     update_attendance_in_db_in(present)
     return redirect('home')
 
-
 def mark_your_attendance_out(request):
     detector = dlib.get_frontal_face_detector()
-
-    predictor = dlib.shape_predictor(
-        'face_recognition_data/shape_predictor_68_face_landmarks.dat')  # Add path to the shape predictor ######CHANGE TO RELATIVE PATH LATER
+    predictor = dlib.shape_predictor('face_recognition_data/shape_predictor_68_face_landmarks.dat')  # Add path to the shape predictor ######CHANGE TO RELATIVE PATH LATER
     svc_save_path = "face_recognition_data/svc.sav"
 
     with open(svc_save_path, 'rb') as f:
@@ -627,27 +655,22 @@ def mark_your_attendance_out(request):
 
     sampleNum = 0
 
-    while (True):
-
+    while True:
         frame = vs.read()
-
         frame = imutils.resize(frame, width=800)
-
         gray_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-
         faces = detector(gray_frame, 0)
 
         for face in faces:
             print("INFO : inside for loop")
-            (x, y, w, h) = face_utils.rect_to_bb(face)
+            (x, y, w, h) = rect_to_bb(face)
 
             face_aligned = fa.align(frame, gray_frame, face)
             cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 1)
 
             (pred, prob) = predict(face_aligned, svc)
 
-            if (pred != [-1]):
-
+            if pred != [-1]:
                 person_name = encoder.inverse_transform(np.ravel([pred]))[0]
                 pred = person_name
                 if count[pred] == 0:
@@ -657,42 +680,59 @@ def mark_your_attendance_out(request):
                 if count[pred] == 4 and (time.time() - start[pred]) > 1.5:
                     count[pred] = 0
                 else:
-                    # if count[pred] == 4 and (time.time()-start) <= 1.5:
                     present[pred] = True
                     log_time[pred] = datetime.datetime.now()
                     count[pred] = count.get(pred, 0) + 1
                     print(pred, present[pred], count[pred])
-                cv2.putText(frame, str(person_name) + str(prob), (x + 6, y + h - 6), cv2.FONT_HERSHEY_SIMPLEX, 0.5,
-                            (0, 255, 0), 1)
+                    
+
+                cv2.putText(frame, str(person_name) + str(prob), (x + 6, y + h - 6), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 1)
+                # Show the face detected message for 2 seconds (2000 milliseconds)
+                # Display the detected face with the name for 10 seconds
+                cv2.imshow("Detected Face - " + person_name, cv2.resize(face_aligned, (300, 300)))  # Resize the window to 300x300
+                cv2.waitKey(5000)
+                cv2.destroyWindow("Detected Face - " + person_name)
+
+                # Create a black background image with larger dimensions
+                background_color = (0, 0, 0)
+                background_image = np.full((150, 700, 3), background_color, dtype=np.uint8)
+
+                # Add text to the image
+                font = cv2.FONT_HERSHEY_SIMPLEX
+                text = person_name.title() + " Your Attendance-Out is marked"  # Modify this text as needed
+                text_color = (255, 255, 255)  # White color for the text
+                text_size = cv2.getTextSize(text, font, 1, 2)[0]
+                text_x = (background_image.shape[1] - text_size[0]) // 2
+                text_y = (background_image.shape[0] + text_size[1]) // 3
+                cv2.putText(background_image, text, (text_x, text_y), font, 1, text_color, 2, cv2.LINE_AA)
+
+                # Display the image in a window for 10 seconds
+                cv2.imshow("Face Detected", background_image)
+                update_attendance_in_db_out(present)
+                cv2.waitKey(5000)
+                cv2.destroyWindow("Face Detected")
+
+                vs.stop()  # Stop the video stream
+                cv2.destroyAllWindows()  # Close all windows
+                return redirect('home')  # Redirect to the desired page after detecting a face
+
 
             else:
                 person_name = "unknown"
                 cv2.putText(frame, str(person_name), (x + 6, y + h - 6), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 1)
 
-        # cv2.putText()
-        # Before continuing to the next loop, I want to give it a little pause
-        # waitKey of 100 millisecond
-        # cv2.waitKey(50)
-
-        # Showing the image in another window
-        # Creates a window with window name "Face" and with the image img
-        cv2.imshow("Mark Attendance- Out - Press q to exit", frame)
-        # Before closing it we need to give a wait command, otherwise the open cv wont work
-        # @params with the millisecond of delay 1
-        # cv2.waitKey(1)
-        # To get out of the loop
+        cv2.imshow("Mark Attendance- Out - Press m to exit", frame)
         key = cv2.waitKey(50) & 0xFF
-        if (key == ord("q")):
+        if key == ord("q"):
             break
 
     # Stoping the videostream
     vs.stop()
 
-    # destroying all the windows
+    # Destroying all the windows
     cv2.destroyAllWindows()
     update_attendance_in_db_out(present)
     return redirect('home')
-
 
 @login_required
 def train(request):
