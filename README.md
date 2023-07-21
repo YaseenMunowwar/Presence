@@ -1,4 +1,4 @@
-# Presence
+![image](https://github.com/YaseenMunowwar/Presence/assets/120727198/fe60aa64-cb4f-4ab2-9ba2-12f2823038d1)# Presence
 ## An AI-powered Django web application that uses facial recognition to mark attendance.
 
 ![image](https://github.com/YaseenMunowwar/Presence/assets/120727198/4cd52b82-f2aa-439a-a396-155ca27ba5b7)
@@ -40,6 +40,11 @@ The documentation folder contains detailed information about the project, includ
  ##### 3.1 macOS/Linux: source env/bin/activate
 #### 4. Install dependencies: pip install -r requirements.txt
 #### 5. Run the application: python manage.py runserver
+#### Username - admin  Password - admin222 
 
 # Screenshots
+![image](https://github.com/YaseenMunowwar/Presence/assets/120727198/6b7ca42d-a43e-4162-8678-29ed2fb1dbca)
+![image](https://github.com/YaseenMunowwar/Presence/assets/120727198/7dda2cc1-9850-4369-bbd1-c24abd3cb768)
+![image](https://github.com/YaseenMunowwar/Presence/assets/120727198/73b4be07-deb3-4ef4-a974-8a3d485c03c8)
+![image](https://github.com/YaseenMunowwar/Presence/assets/120727198/4cae4526-c296-4313-a2b2-485b6318e1b0)
 
